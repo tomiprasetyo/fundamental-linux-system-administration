@@ -1,0 +1,47 @@
+// buat folder lab4
+
+mkdir lab4
+
+// ketikan kode dibawah
+
+vim /home/student/lab4/killing
+#!/bin/bash
+while true; do
+echo -n "$@ " >> ~/lab4/killing_outfile
+sleep 5
+done
+
+// ketikan perintah chmod
+
+chmod +x /home/student/lab4/killing
+
+// ketikan perintah dibawah
+
+./killing network &
+./killing interface &
+./killing connection &
+
+// cek background proses
+
+jobs
+
+// pgrep adalah utilitas baris perintah yang memungkinkan Anda menemukan process ID dari program yang sedang berjalan berdasarkan kriteria yang diberikan.
+// Ini bisa berupa nama proses lengkap atau sebagian, pengguna yang menjalankan proses, atau atribut lainnya.
+
+pgrep killing
+
+
+// Perintah ps aux adalah alat untuk memantau proses yang berjalan di sistem Linux Anda. 
+// Suatu proses dikaitkan dengan program apa pun yang berjalan di sistem Anda, 
+// dan digunakan untuk mengelola dan memantau penggunaan memori program, waktu prosesor, dan sumber daya I/O.
+
+ps aux | grep killing
+
+// kill signal yang dikehendaki (SIGKILL & SIGSTOP)
+
+kill -19 <angka>
+kill -9 <angka>
+
+// cek kembali background proses
+
+job
