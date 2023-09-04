@@ -1,0 +1,15 @@
+Lab 2.1: List and Count Files
+
+// cek masing-masing banyak file
+ls client* | wc -l
+ls ops* | wc -l
+ls manager* | wc -l
+
+// dengan menggunakan perintah echo tambahkan ke file /home/student/lab2/lab2.txt
+echo "client = 289" > /home/student/lab2/lab2.txt
+echo "ops = 196" >> /home/student/lab2/lab2.txt
+echo "manager = 15" > /home/student/lab2/lab2.txt
+
+// cek hasilnya
+cat lab2.txt
+
