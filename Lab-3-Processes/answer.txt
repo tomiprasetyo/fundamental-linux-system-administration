@@ -1,0 +1,9 @@
+sudo nano vim /etc/security/limits.conf
+
+// tambahkan line berikut ini
+
+@student    soft    nproc       20 // tab 2x
+@student    hard    nproc       100
+
+@student    hard    nofile      3000
+@student    soft    nofile      2000
