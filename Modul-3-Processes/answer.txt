@@ -1,3 +1,5 @@
+// Configure Resource Limits
+
 sudo nano vim /etc/security/limits.conf
 
 // tambahkan line berikut ini

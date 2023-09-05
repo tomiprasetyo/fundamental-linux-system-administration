@@ -1,0 +1,23 @@
+// Making Links Between Files
+
+// Hard link
+cd lab8
+touch bck/backupfile.txt
+
+// hapus file sourcefile.txt terlebih dahulu
+cd src
+rm sourcefile.txt
+cd ..
+
+// sambungkan file
+ln bck/backupfile.txt src/sourcefile.txt
+
+// Tulis [nama pengguna] di file ~/lab8/src/sourcefile.txt
+echo "tomiprasetyo" > src/sourcefile.txt 
+
+ls src/ -lia
+ls bck/ -lia
+
+// Soft link
+ln -s /tmp tempdirectory
+ls -lia

@@ -1,3 +1,5 @@
+// Kill all dan pkill
+
 // buat folder lab4
 
 mkdir lab4
