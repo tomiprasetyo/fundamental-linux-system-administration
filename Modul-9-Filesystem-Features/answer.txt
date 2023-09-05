@@ -1,0 +1,25 @@
+// Create Swap File
+
+// instruksi
+// Membuat file yang akan digunakan untuk swap:
+sudo fallocation -l 2G /swapfile
+
+// Hanya pengguna root yang dapat menulis dan membaca file swap. Tetapkan izin yang benar dengan mengetik:
+sudo chmod 600 /swapfile
+
+// Gunakan utilitas mkswap untuk menyiapkan area swap Linux pada file:
+sudo mkswap /swapfile
+
+// Aktifkan file swap menggunakan perintah berikut
+sudo swapon /swapfile
+
+// Untuk menjadikan perubahan permanen, buka file /etc/fstab. tambahkan ke baris baru jangan ubah apa pun yang sudah ada:
+sudo nano /etc/fstab
+
+// ketikan kode dibawah ini
+/swapfile swap swap default 0 0
+
+// Verifikasi swap
+
+sudo swapon --show
+
