@@ -1,0 +1,21 @@
+// buat direktori baru dengan nama /home/student/lab6
+mkdir /home/student/lab6
+
+// buat script dengan nama monitor
+#!/bin/bash
+while true; do
+    var=1
+    while [[ var -lt 50000 ]]; do
+        var=$(($var+1))
+    done
+    sleep 1
+done
+
+// Gunakan perintah chmod untuk membuat file monitor yang dapat dieksekusi.
+chmod a+x /home/student/lab6/monitor
+
+// monitor cpu
+lscpu
+
+// jalankan perintah berikut
+/home/student/lab6/monitor &
