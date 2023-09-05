@@ -1,0 +1,23 @@
+Lab Install Package
+
+// install package
+
+sudo apt update
+sudo apt upgrade
+
+// install package apache2
+
+sudo apt install apache2
+apt list --installed
+
+Quiz Installing Package With Repository
+
+// Install Mariadb 10.9.4 ke /etc/apt/sources.list.d dengan nama mariadb.list
+// tambahkan public key Repository
+curl - fsSL http://mirror.mariadb.org/PublicKey_v2 | sudo gpg --dearmor | sudo tee /usr/share/keyrings/mariadb.gpg > /dev/null
+
+// ketikan perintah dibawah ini
+echo "deb [arch=amd64,arm64,ppc64el signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mariadb.org/repo/10.9/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/mariadb.list
+
+// install mariadb server
+sudo apt install mariadb-server
