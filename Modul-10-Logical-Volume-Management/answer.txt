@@ -1,0 +1,70 @@
+// Logical Volumes
+
+// Gunakan perintah sudo -i untuk beralih ke pengguna root.
+sudo -i
+
+
+// Buat sumber daya fisik, Gunakan parted untuk membuat dua partisi 256 MiB dan atur agar mengetik Linux LVM.
+parted -s /dev/sdb mklabel gpt
+parted -s /dev/sdb mkpart primer 1MiB 257MiB
+parted -s /dev/sdb aktifkan 1 lvm
+parted -s /dev/sdb mkpart primer 258MiB 514MiB
+parted -s /dev/sdb aktifkan 2 lvm
+
+// Buat sumber daya fisik, Gunakan parted untuk membuat dua partisi 256 MiB dan atur agar mengetik Linux LVM.
+parted -s /dev/sdb mklabel gpt
+parted -s /dev/sdb mkpart primer 1MiB 257MiB
+parted -s /dev/sdb aktifkan 1 lvm
+parted -s /dev/sdb mkpart primer 258MiB 514MiB
+parted -s /dev/sdb aktifkan 2 lvm
+
+
+// Gunakan udevadm menetap pada sistem untuk mendaftarkan partisi baru.
+udevadm selesai
+
+
+// Gunakan pvcreate untuk menambahkan dua partisi baru sebagai PV.
+pvcbuat /dev/sdb1 /dev/sdb2
+
+// Gunakan vgcreate untuk membuat VG baru bernama [nama pengguna]_01_vg yang dibuat dari dua PV.
+
+vgcreate [nama pengguna]_01_vg /dev/sdb1 /dev/sdb2
+
+// Gunakan lvcreate untuk membuat LV 400 MiB bernama [nama pengguna]_01_lv dari [nama pengguna]_01_vg VG.
+lvcreate -n [nama pengguna]_01_lv -L 400 juta [nama pengguna]_01_vg
+
+// Ini menciptakan perangkat bernama /dev/[username]_01_vg/[username]_01_lv tetapi tanpa sistem file di dalamnya.
+// Tambahkan sistem file persisten, Tambahkan sistem file ext4 pada LV [username]_01_lv dengan perintah mkfs.
+mkfs -t ext4 /dev/[nama pengguna]_01_vg/[nama pengguna]_01_lv
+
+// Buat titik mount di /data.
+mkdir /data
+
+// Tambahkan baris berikut di akhir /etc/fstab :
+/dev/[nama pengguna]_01_vg/[nama pengguna]_01_lv /data ext4 default 1 2
+
+
+// Gunakan systemctl daemon-reload untuk memperbarui systemd dengan konfigurasi /etc/fstab yang baru.
+systemctl daemon-reload
+
+
+// Verifikasi entri /etc/fstab dan pasang perangkat LV [nama pengguna]_01_lv baru dengan perintah mount.
+mount /data
+
+
+// Sebagai tes terakhir, salin beberapa file ke /data dan verifikasi berapa banyak yang disalin.
+cp -a /etc/*.conf /data
+ls /data | wc -l
+
+// parted /dev/sdb print mencantumkan partisi yang ada di /dev/sdb.
+parted /dev/sdb print
+
+// pvdisplay menampilkan informasi tentang masing-masing volume fisik. Secara opsional, sertakan nama perangkat untuk membatasi detail pada PV tertentu.
+pvdisplay /dev/sdb2
+
+// vgdisplay vgname menampilkan informasi tentang grup volume bernama vgname.
+vgdisplay [nama pengguna]_01_vg
+
+
+// lvdisplay /dev/vgname/lvname menampilkan informasi tentang volume logis bernama lvname.
+lvdisplay /dev/[nama pengguna]_01_vg/[nama pengguna]_01_lv
